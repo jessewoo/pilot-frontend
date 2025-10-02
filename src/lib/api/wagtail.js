@@ -38,16 +38,18 @@ export async function getPageBySlugUpdated(slug) {
         slug: slug
       }
     });
-    
-    console.log('API response for slug:', slug, response.data);
 
     if (response.data) {
       return response.data;
     }
-    
+
     return null;
   } catch (error) {
-    console.error('Error fetching page:', error);
+    if (error.response?.status === 404) {
+      console.warn(`Page not found for slug: ${slug}`);
+    } else {
+      console.error('Error fetching page:', error.message);
+    }
     return null;
   }
 }
@@ -59,5 +61,21 @@ export async function getPageById(id) {
   } catch (error) {
     console.error('Error fetching page by ID:', error);
     return null;
+  }
+}
+
+// Fetch navigation menus from Wagtail API
+export async function getNavigationMenus() {
+  try {
+    const response = await axios.get(`${API_URL}/navigation_menus/`);
+    // console.log('Fetched navigation menus:', response);
+    return response.data;
+  } catch (error) {
+    if (error.response?.status === 404) {
+      console.warn('Navigation menus endpoint not found');
+    } else {
+      console.error('Error fetching navigation menus:', error.message);
+    }
+    return { items: [] };
   }
 }

@@ -1,12 +1,19 @@
 <script>
+  import '../styles/global.css';
   import Header from '$lib/components/Header.svelte';
   import Footer from '$lib/components/Footer.svelte';
+  import Navigation from '$lib/components/Navigation.svelte';
+
+  let { data, children } = $props();
+  // console.log('Layout data:', data);
+
 </script>
 
 <div class="app">
   <Header />
+  <Navigation navigationMenus={data.navigationMenus} />
   <main>
-    <slot />
+    {@render children()}
   </main>
   <Footer />
 </div>

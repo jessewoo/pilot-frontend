@@ -1,2 +1,16 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
+<script>
+  import HomePage from '$lib/components/HomePage.svelte';
+
+  let { data } = $props();
+
+  const page = $derived(data.page);
+</script>
+
+<svelte:head>
+  <title>{page?.title || 'Home'}</title>
+  {#if page?.meta_description}
+    <meta name="description" content={page.meta_description} />
+  {/if}
+</svelte:head>
+
+<HomePage {page} />
