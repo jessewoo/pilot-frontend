@@ -4,10 +4,6 @@
 
 <section class="links-section">
   <div class="container">
-    {#if data.title}
-      <h2 class="section-title">{data.title}</h2>
-    {/if}
-
     <div class="links-grid">
       {#each data.links as link}
         <a href={link.url} class="link-card">
@@ -27,20 +23,12 @@
 
 <style>
   .links-section {
-    padding: 60px 20px;
-    background: white;
+    padding: 30px 20px;
   }
 
   .container {
     max-width: 1200px;
     margin: 0 auto;
-  }
-
-  .section-title {
-    text-align: center;
-    font-size: 2.5rem;
-    color: #1a1a1a;
-    margin-bottom: 40px;
   }
 
   .links-grid {

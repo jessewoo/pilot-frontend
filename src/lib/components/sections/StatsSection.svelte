@@ -4,13 +4,13 @@
 
 <section class="stats-section">
   <div class="container">
-    {#if data.title}
+    <!-- {#if data.title}
       <h2 class="section-title">{data.title}</h2>
-    {/if}
+    {/if} -->
 
     <div class="stats-grid">
-      {#each data.stats as stat}
-        <div class="stat-card">
+      {#each data.stats as stat, index}
+        <div class="stat-card" class:major={index < 2} class:minor={index >= 2}>
           <div class="stat-number">{stat.number}</div>
           <div class="stat-label">{stat.label}</div>
           {#if stat.description}
@@ -28,7 +28,7 @@
 <style>
   .stats-section {
     padding: 60px 20px;
-    background: #f8f9fa;
+    /* background: #f8f9fa; */
   }
 
   .container {
@@ -36,26 +36,29 @@
     margin: 0 auto;
   }
 
-  .section-title {
-    text-align: center;
-    font-size: 2.5rem;
-    color: #1a1a1a;
-    margin-bottom: 40px;
-  }
-
   .stats-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(6, 1fr);
     gap: 30px;
   }
 
   .stat-card {
-    background: white;
     padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border-radius: 4px;
+    box-shadow: 0px 0px 26px rgba(0, 0, 0, 0.09);
     text-align: center;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    color: white;
+    text-align: left;
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .stat-card.major {
+    grid-column: span 3;
+  }
+
+  .stat-card.minor {
+    grid-column: span 2;
   }
 
   .stat-card:hover {
@@ -64,18 +67,17 @@
   }
 
   .stat-number {
-    font-size: 3rem;
-    font-weight: 700;
-    color: #0066cc;
-    margin-bottom: 10px;
+    font-size: 4rem;
+    font-weight: 600;
+    letter-spacing: -0.1rem;
+    line-height: 1em;
   }
 
   .stat-label {
     font-size: 1.1rem;
-    font-weight: 600;
-    color: #333;
     margin-bottom: 10px;
-    line-height: 1.4;
+    line-height: 1.2em;
+    font-weight: 600;
   }
 
   .stat-description {
@@ -85,20 +87,21 @@
   }
 
   .stat-cta {
+    margin-top: 2rem;
     display: inline-block;
-    margin-top: 15px;
     padding: 10px 20px;
-    background: #0066cc;
     color: white;
     border-radius: 5px;
     font-weight: 500;
     text-decoration: none;
     transition: background 0.2s ease;
+    background: none;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 1rem 0 2rem 0;
   }
 
   .stat-cta:hover {
-    background: #0052a3;
-    text-decoration: none;
+    border-color: white;
   }
 
   @media (max-width: 768px) {

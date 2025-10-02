@@ -53,5 +53,6 @@ img {
 
 /* Add any additional global overrides below */
 #maincontent {
-  color: white
+  color: white;
+  padding-top: 50px;
 }
