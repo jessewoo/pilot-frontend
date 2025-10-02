@@ -1,4 +1,11 @@
 <script>
+  import StatsSection from './sections/StatsSection.svelte';
+  import LinksSection from './sections/LinksSection.svelte';
+  import OpportunitiesSection from './sections/OpportunitiesSection.svelte';
+  import ProjectHighlightsSection from './sections/ProjectHighlightsSection.svelte';
+  import NewsSection from './sections/NewsSection.svelte';
+  import RichContentSection from './sections/RichContentSection.svelte';
+
   let { page } = $props();
 </script>
 
@@ -19,24 +26,27 @@
       </div>
     </div>
   </div>
-  <article class="home-page">
-    <div class="container">
-      <h1>{page.title}</h1>
-
-      {#if page.body}
-        <div class="content">
-          {@html page.body}
-        </div>
-      {/if}
-
-      {#if page.content}
-        <div class="content">
-          {@html page.content}
-        </div>
-      {/if}
+  {#if page.content_sections && page.content_sections.length > 0}
+    <div class="page-wrap">
+      <main id="maincontent" class="page">
+        {#each page.content_sections as section}
+          {#if section.type === 'stats_section'}
+            <StatsSection data={section.value} />
+          {:else if section.type === 'links_section'}
+            <LinksSection data={section.value} />
+          {:else if section.type === 'opportunities_section'}
+            <OpportunitiesSection data={section.value} />
+          {:else if section.type === 'project_highlights'}
+            <ProjectHighlightsSection data={section.value} />
+          {:else if section.type === 'news_section'}
+            <NewsSection data={section.value} />
+          {:else if section.type === 'rich_content_section'}
+            <RichContentSection data={section.value} />
+          {/if}
+        {/each}
+      </main>
     </div>
-  </article>
-  
+  {/if}
 {:else}
   <div class="container">
     <h1>Welcome</h1>
