@@ -1,6 +1,8 @@
 <script>
+  import DynamicPageBody from '$lib/components/DynamicPageBody.svelte';
+
   export let data;
-  
+
   $: page = data.page;
 </script>
 
@@ -11,17 +13,21 @@
   {/if}
 </svelte:head>
 
-<article class="dynamic-page">
+<article class="dynamic-page" id={page.slug}>
   <div class="container">
     <h1>{page.title}</h1>
-    
-    {#if page.body}
+
+    {#if page.body && Array.isArray(page.body)}
+      <DynamicPageBody body={page.body} />
+    {:else if page.body}
       <div class="content">
         {@html page.body}
       </div>
     {/if}
-    
-    {#if page.content}
+
+    {#if page.content && Array.isArray(page.content)}
+      <DynamicPageBody body={page.content} />
+    {:else if page.content && !page.body}
       <div class="content">
         {@html page.content}
       </div>
@@ -32,7 +38,6 @@
 <style>
   .dynamic-page {
     padding: 60px 20px;
-    background: #f8f9fa;
   }
 
   .container {
